@@ -15,7 +15,7 @@ const resolvers = {
         return {};
       } else {
         const newToken = "Bearer " + uuidv4();
-        awaitUser.findOneAndUpdate(
+        await User.findOneAndUpdate(
           { username: args.username },
           { token: newToken },
           { new: true }
