@@ -1,4 +1,5 @@
 const User = require("../model/User");
+const { v4: uuidv4 } = require("uuid");
 
 const resolvers = {
   Query: {
@@ -6,10 +7,22 @@ const resolvers = {
       return await User.find();
     },
     login: async (parent, args) => {
-      return await User.findOne({
+      let user = await User.findOne({
         username: args.username,
         password: args.password,
       });
+      if (!user) {
+        return {};
+      } else {
+        const newToken = "Bearer " + uuidv4();
+        awaitUser.findOneAndUpdate(
+          { username: args.username },
+          { token: newToken },
+          { new: true }
+        );
+        user.token = newToken;
+        return user;
+      }
     },
     getUserInfo: async (parent, args) => {
       return await User.findOne({ token: args.token });
