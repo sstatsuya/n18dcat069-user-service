@@ -11,12 +11,25 @@ const typeDefs = gql`
     avatar: String
     token: String
     role: Int
+    comments: [Comment]
+  }
+
+  type Comment {
+    id: String
+    userID: String
+    productID: String
+    content: String
+    time: Int
+    user: User
   }
 
   type Query {
     users: [User]
     login(username: String, password: String): User
     getUserInfo(token: String): User
+    user(id: String): User
+    comments: [Comment]
+    comment(id: String): Comment
   }
 `;
 
