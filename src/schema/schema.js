@@ -1,6 +1,9 @@
 const { gql } = require("apollo-server-express");
+const { GraphQLJSON, GraphQLJSONObject } = require("graphql-type-json");
 
 const typeDefs = gql`
+  scalar JSON
+  scalar JSONObject
   type User {
     id: ID
     name: String
@@ -23,6 +26,10 @@ const typeDefs = gql`
     user: User
   }
 
+  type Res {
+    data: JSONObject
+  }
+
   type Query {
     users: [User]
     login(username: String, password: String): User
@@ -30,6 +37,8 @@ const typeDefs = gql`
     user(id: String): User
     comments: [Comment]
     comment(id: String): Comment
+    loginMySql(username: String, password: String): User
+    loginJSON(input: JSONObject): User
   }
 `;
 

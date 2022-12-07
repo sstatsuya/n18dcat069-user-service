@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+var mysql = require("mysql");
+
 const connect = async () => {
   mongoose
     .connect(
@@ -14,4 +16,16 @@ const connect = async () => {
     });
 };
 
-module.exports = { connect };
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+});
+
+con.connect(function (err) {
+  if (err) {
+    console.log("Error when connect to MySql: " + err);
+  } else console.log("Mysql Connected Successful");
+});
+
+module.exports = { connect, con };
